@@ -2,36 +2,62 @@
 
 namespace ElectronicStore.Models
 {
-    public sealed class Inventory : BaseEntity
+    public class Inventory
     {
-        public static StringValidatorWitExceptions stringValidatorWithExceptions = new StringValidatorWitExceptions();
+        public static StringValidator stringValidator = new StringValidator();
         private static List<Inventory> inventoryList = new List<Inventory>();
         public int ProductCode { get; private set; }
         public int Quantity { get; private set; }
         public DateTime EntryDate { get; private set; }
+        public static int Id { get; private set; }
+        public int Code { get; private set; }
+
+        private static void IncrementIdentifier() => Id++;
 
         public Inventory(int productCode, int quantity)
         {
             IncrementIdentifier();
-            Code = Product.Id;
+            Code = Id;
             ProductCode = productCode;
             Quantity = quantity;
-            EntryDate = new DateTime();
+            EntryDate = DateTime.Now;
         }
 
         public static int ValidateQuantity(int quantity)
         {
-
             if (quantity <= 0)
             {
                 StandardConsoleMessages.ValueCannotBeZeroOrNegative();
 
-                Console.WriteLine();
                 Console.WriteLine("Quantity:");
-                quantity = Convert.ToInt32(stringValidatorWithExceptions.ValidateString());
+                quantity = Convert.ToInt32(stringValidator.ValidateString());
                 quantity = ValidateQuantity(quantity);
             }
             return quantity;
+        }
+
+        public static void CreateInventoryEntry()
+        {
+            if (Product.GetProducts().Count > 0)
+            {
+                Console.WriteLine("Product code:");
+                var productCode = Convert.ToInt32(stringValidator.ValidateString());
+                var product = Product.GetProduct(productCode);
+                productCode = product.Code;
+
+                Console.WriteLine("Quantity:");
+                var quantity = Convert.ToInt32(stringValidator.ValidateString());
+                quantity = ValidateQuantity(quantity);
+
+                var inventoryEntry = new Inventory(productCode, quantity);
+                inventoryList.Add(inventoryEntry);
+
+                StandardConsoleMessages.ClearConsoleAndSkipALine();
+                Console.WriteLine($"New entry of the product code '{inventoryEntry.ProductCode}' registered!");
+                StandardConsoleMessages.PressAnyKeyToReturn();
+            }
+            else
+                StandardConsoleMessages.EmptyList("Products");
         }
 
         public static void GetInventoryEntries()
@@ -48,125 +74,33 @@ namespace ElectronicStore.Models
         public static void GetInventoryDetails(Inventory inventory)
         {
             Console.WriteLine($"Inventory code: {inventory.Code}");
+            Console.WriteLine($"Entry date: {inventory.EntryDate}");
             Console.WriteLine($"Quantity: {inventory.Quantity}");
-
             var product = Product.GetProduct(inventory.ProductCode);
             Product.GetProductDetails(product);
-        }
-        public static int ValidateCode(int code)
-        {
-            try
-            {
-                var inventoryEntry = GetInventoryEntry(code);
-                if (inventoryEntry != null)
-                {
-                    return code;
-                }
-                else
-                {
-                    throw new InvalidOperationException();
-                }
-            }
-
-            catch (InvalidOperationException)
-            {
-                StandardConsoleMessages.InvalidCode();
-
-                Console.WriteLine();
-                Console.WriteLine("Please, inform the entry code:");
-                code = Convert.ToInt32(stringValidatorWithExceptions.ValidateString());
-                code = ValidateCode(code);
-            }
-            catch (Exception)
-            {
-                StandardConsoleMessages.UnidentifiedErrorOccurred();
-            }
-            return code;
-        }
-
-        public static void CreateInventoryEntry()
-        {
-            Console.WriteLine("Product code:");
-            var productCode = Convert.ToInt32(stringValidatorWithExceptions.ValidateString());
-            productCode = Product.ValidateCode(productCode);
-
-            Console.WriteLine("Quantity:");
-            var quantity = Convert.ToInt32(stringValidatorWithExceptions.ValidateString());
-            quantity = ValidateQuantity(quantity);
-
-            var inventoryEntry = new Inventory(productCode, quantity);
-            inventoryList.Add(inventoryEntry);
-
-            StandardConsoleMessages.ClearConsoleAndSkipALine();
-            Console.WriteLine($"New entry of the product code '{inventoryEntry.ProductCode}' registered!");
-            StandardConsoleMessages.PressAnyKeyToReturn();
         }
 
         public static void DeleteInventoryEntry()
         {
-            Console.WriteLine("Please, inform the entry code:");
-            int code = Convert.ToInt32(stringValidatorWithExceptions.ValidateString());
-
-            try
+            if (inventoryList.Count() > 0)
             {
+                Console.WriteLine("Please, inform the entry code:");
+                int code = Convert.ToInt32(stringValidator.ValidateString());
+                code = CodeValidator.ValidateCode(code, "Inventory");
                 var inventoryEntry = GetInventoryEntry(code);
+
                 inventoryList.Remove(inventoryEntry);
 
-                Console.Clear();
+                StandardConsoleMessages.ClearConsoleAndSkipALine();
                 Console.WriteLine($"Invetory entry code {inventoryEntry.Code} removed!");
                 StandardConsoleMessages.PressAnyKeyToReturn();
             }
-            catch (InvalidOperationException)
-            {
-                StandardConsoleMessages.InvalidCode();
-            }
-            catch (NullReferenceException)
-            {
-                StandardConsoleMessages.InvalidCode();
-            }
-            catch (Exception)
-            {
-                StandardConsoleMessages.UnidentifiedErrorOccurred();
-            }
+            else
+                StandardConsoleMessages.EmptyList("Inventory");
         }
+
+        public static int GetInventoryCount() => inventoryList.Count();
+
+        public static List<Inventory> GetInventoryList() => inventoryList;
     }
 }
-
-//public static void UpdateInventory()
-//{
-//    Console.WriteLine("Please, inform the Inventory Code:");
-//    var code = Convert.ToInt32(stringValidatorWithExceptions.ValidateString());
-
-//    try
-//    {
-//        var inventory = GetInventory(code);
-//        StandardConsoleMessages.ClearConsoleAndSkipALine();
-
-//        Console.WriteLine("PRODUCT DETAILS:");
-//        GetInventoryDetails(inventory);
-
-//        Console.WriteLine("Please, insert new values:");
-//        Console.WriteLine();
-
-//        Console.WriteLine("Description:");
-//        var description = stringValidatorWithExceptions.ValidateString();
-//        inventory.Description = description;
-
-//        Console.WriteLine("Price:");
-//        var price = Convert.ToDouble(stringValidatorWithExceptions.ValidateString());
-//        ValidatePrice(price);
-//        inventory.Price = price;
-
-//        StandardConsoleMessages.ClearConsoleAndSkipALine();
-//        Console.WriteLine($"Inventory code {inventory.Code} updated!");
-//        StandardConsoleMessages.PressAnyKeyToReturn();
-//    }
-//    catch (InvalidOperationException)
-//    {
-//        StandardConsoleMessages.InvalidCode();
-//    }
-//    catch (Exception)
-//    {
-//        StandardConsoleMessages.UnidentifiedErrorOccurred();
-//    }
-//}

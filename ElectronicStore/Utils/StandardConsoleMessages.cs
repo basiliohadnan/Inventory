@@ -7,12 +7,12 @@
             Console.WriteLine();
             Console.WriteLine("Press any key to return.");
             Console.ReadLine();
-            Console.Clear();
+            ClearConsoleAndSkipALine();
         }
 
         public static void InvalidCode()
         {
-            Console.Clear();
+            ClearConsoleAndSkipALine();
             ColourChanger.RedText();
             Console.WriteLine("Invalid code, please try again.");
             Console.WriteLine();
@@ -21,7 +21,7 @@
 
         public static void InvalidFormat()
         {
-            Console.Clear();
+            ClearConsoleAndSkipALine();
             ColourChanger.RedText();
             Console.WriteLine("Invalid format, please try again.");
             Console.WriteLine();
@@ -30,16 +30,25 @@
 
         public static void InvalidOption()
         {
-            Console.Clear();
+            ClearConsoleAndSkipALine();
             ColourChanger.RedText();
             Console.WriteLine("Invalid option, try again.");
             Console.WriteLine();
             ColourChanger.WhiteText();
         }
 
+        public static void EmptyList(string type)
+        {
+            ClearConsoleAndSkipALine();
+            ColourChanger.YellowText();
+            Console.WriteLine($"There are no items in {type} list.");
+            Console.WriteLine();
+            ColourChanger.WhiteText();
+        }
+
         public static void UnidentifiedErrorOccurred()
         {
-            Console.Clear();
+            StandardConsoleMessages.ClearConsoleAndSkipALine();
             ColourChanger.RedText();
             Console.WriteLine("Unidentified error occured.");
             Console.WriteLine("Check the input and try again.");
@@ -54,12 +63,22 @@
 
         public static void ValueCannotBeZeroOrNegative()
         {
-            Console.Clear();
+            ClearConsoleAndSkipALine();
             ColourChanger.RedText();
             Console.WriteLine("Price can't be negative or zero.");
+            Console.WriteLine();
             ColourChanger.WhiteText();
         }
-    
+
+        public static void MustFillField()
+        {
+            ClearConsoleAndSkipALine();
+            ColourChanger.RedText();
+            Console.WriteLine("Must fill this field.");
+            Console.WriteLine();
+            ColourChanger.WhiteText();
+        }
+
         public static void MainInfo()
         {
             ColourChanger.GreenText();

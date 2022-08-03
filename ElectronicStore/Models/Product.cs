@@ -2,13 +2,16 @@
 
 namespace ElectronicStore.Models
 {
-    public sealed class Product : BaseEntity
+    public class Product
     {
-        public static StringValidatorWitExceptions stringValidatorWithExceptions = new StringValidatorWitExceptions();
+        public static StringValidator stringValidator = new StringValidator();
         private static List<Product> products = new List<Product>();
         public string Description { get; private set; }
         public double Price { get; private set; }
+        public static int Id { get; private set; }
+        public int Code { get; private set; }
 
+        private static void IncrementIdentifier() => Id++;
         public Product(string description, double price)
         {
             IncrementIdentifier();
@@ -17,73 +20,47 @@ namespace ElectronicStore.Models
             Price = price;
         }
 
-        public static void InvalidCode(int code)
-        {
-            StandardConsoleMessages.InvalidCode();
-
-            Console.WriteLine();
-            Console.WriteLine("Product code:");
-            code = Convert.ToInt32(stringValidatorWithExceptions.ValidateString());
-            code = ValidateCode(code);
-        }
-
         public static double ValidatePrice(double price)
         {
-            if (price <= 0)
+            while (true)
             {
-                StandardConsoleMessages.ValueCannotBeZeroOrNegative();
-
-                Console.WriteLine();
-                Console.WriteLine("Price:");
-                price = Convert.ToDouble(stringValidatorWithExceptions.ValidateString());
-                price = ValidatePrice(price);
-            }
-            return price;
-        }
-
-        public static int ValidateCode(int code)
-        {
-            try
-            {
-                var product = GetProduct(code);
-                if (product != null)
+                try
                 {
-                    return code;
+                    if (price > 0)
+                        return price;
+
+                    StandardConsoleMessages.ValueCannotBeZeroOrNegative();
+
+                    Console.WriteLine();
+                    Console.WriteLine("Price:");
+                    price = Convert.ToDouble(stringValidator.ValidateString());
+                    price = ValidatePrice(price);
                 }
-                else
+                catch (FormatException)
                 {
-                    InvalidCode(code);
+                    StandardConsoleMessages.InvalidFormat();
+                    continue;
+                }
+                catch (InvalidOperationException)
+                {
+                    StandardConsoleMessages.InvalidOption();
+                    continue;
+                }
+                catch (Exception)
+                {
+                    StandardConsoleMessages.UnidentifiedErrorOccurred();
+                    continue;
                 }
             }
-            catch (FormatException)
-            {
-                InvalidCode(code);
-            }
-            catch (InvalidOperationException)
-            {
-                InvalidCode(code);
-            }
-            catch (NullReferenceException)
-            {
-                InvalidCode(code);
-            }
-            catch (Exception)
-            {
-                StandardConsoleMessages.UnidentifiedErrorOccurred();
-            }
-            return code;
         }
 
         public static void CreateProduct()
         {
-            Console.WriteLine("Please, register a product.");
-            Console.WriteLine();
-
             Console.WriteLine("Description:");
-            var description = stringValidatorWithExceptions.ValidateString();
+            var description = stringValidator.ValidateString();
 
             Console.WriteLine("Price:");
-            var price = Convert.ToDouble(stringValidatorWithExceptions.ValidateString());
+            var price = Convert.ToDouble(stringValidator.ValidateString());
             price = ValidatePrice(price);
 
             var product = new Product(description, price);
@@ -94,7 +71,11 @@ namespace ElectronicStore.Models
             StandardConsoleMessages.PressAnyKeyToReturn();
         }
 
-        public static void GetProducts()
+        public static int GetProductsCount() => products.Count();
+
+        public static List<Product> GetProducts() => products;
+
+        public static void GetProductsDetails()
         {
             Console.WriteLine($"Products: {products.Count()}");
             Console.WriteLine();
@@ -104,7 +85,6 @@ namespace ElectronicStore.Models
         }
 
         public static Product GetProduct(int code) => products.First(product => product.Code == code);
-
         public static void GetProductDetails(Product product)
         {
             Console.WriteLine($"Product code: {product.Code}");
@@ -115,43 +95,51 @@ namespace ElectronicStore.Models
 
         public static void DeleteProduct()
         {
-            Console.WriteLine("Please, inform the Product Code:");
-            int code = Convert.ToInt32(stringValidatorWithExceptions.ValidateString());
-            code = ValidateCode(code);
+            if (products.Count > 0)
+            {
+                Console.WriteLine("Please, inform the Product Code:");
+                int code = Convert.ToInt32(stringValidator.ValidateString());
+                code = CodeValidator.ValidateCode(code, "Product");
+                var product = GetProduct(code);
+               
+                products.Remove(product);
 
-            var product = GetProduct(code);
-            products.Remove(product);
-
-            Console.Clear();
-            Console.WriteLine($"Product code {product.Code} removed!");
+                StandardConsoleMessages.ClearConsoleAndSkipALine();
+                Console.WriteLine($"Product code {product.Code} removed!");
+                StandardConsoleMessages.PressAnyKeyToReturn();
+            }
+            else
+                StandardConsoleMessages.EmptyList("Products");
         }
 
         public static void UpdateProduct()
         {
-            Console.WriteLine("Please, inform the Product Code:");
-            int code = Convert.ToInt32(stringValidatorWithExceptions.ValidateString());
-            code = ValidateCode(code);
+            if (products.Count > 0)
+            {
+                Console.WriteLine("Product code:");
+                int code = Convert.ToInt32(stringValidator.ValidateString());
+                code = CodeValidator.ValidateCode(code, "Product");
+                var product = GetProduct(code);
 
-            var product = GetProduct(code);
+                Console.WriteLine("PRODUCT DETAILS:");
+                GetProductDetails(product);
 
-            Console.WriteLine("PRODUCT DETAILS:");
-            GetProductDetails(product);
+                Console.WriteLine("Please, insert new values:");
+                Console.WriteLine("Description:");
+                var description = stringValidator.ValidateString();
+                product.Description = description;
 
-            Console.WriteLine("Please, insert new values:");
-            Console.WriteLine();
+                Console.WriteLine("Price:");
+                var price = Convert.ToDouble(stringValidator.ValidateString());
+                ValidatePrice(price);
+                product.Price = price;
 
-            Console.WriteLine("Description:");
-            var description = stringValidatorWithExceptions.ValidateString();
-            product.Description = description;
-
-            Console.WriteLine("Price:");
-            var price = Convert.ToDouble(stringValidatorWithExceptions.ValidateString());
-            ValidatePrice(price);
-            product.Price = price;
-
-            StandardConsoleMessages.ClearConsoleAndSkipALine();
-            Console.WriteLine($"Product code {product.Code} updated!");
-            StandardConsoleMessages.PressAnyKeyToReturn();
+                StandardConsoleMessages.ClearConsoleAndSkipALine();
+                Console.WriteLine($"Product code {product.Code} updated!");
+                StandardConsoleMessages.PressAnyKeyToReturn();
+            }
+            else
+                StandardConsoleMessages.EmptyList("Products");
         }
     }
 }
