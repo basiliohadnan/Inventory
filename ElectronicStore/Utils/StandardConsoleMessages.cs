@@ -72,7 +72,6 @@
 
         public static void MustFillField()
         {
-            ClearConsoleAndSkipALine();
             ColourChanger.RedText();
             Console.WriteLine("Must fill this field.");
             Console.WriteLine();

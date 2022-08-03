@@ -28,11 +28,6 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
-#Visual Studio
-.vs/*
-.vs/
-.vs
-
 # Miscellaneous
 /.angular/cache
 .sass-cache/
@@ -47,4 +42,8 @@ testem.log
 Thumbs.db
 
 .vscode/
-/bin
+.vs/
+.vs
+.vs/*
+bin/*
+bin/
