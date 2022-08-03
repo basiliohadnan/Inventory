@@ -28,3 +28,18 @@ C:\Users\HadnanBasilioBomTrat\source\repos\mentoria_hadnanbasilio\Sprint 3\Elect
 C:\Users\HadnanBasilioBomTrat\source\repos\mentoria_hadnanbasilio\Sprint 3\ElectronicStore\ElectronicStore\obj\Debug\net6.0\ElectronicStore.pdb
 C:\Users\HadnanBasilioBomTrat\source\repos\mentoria_hadnanbasilio\Sprint 3\ElectronicStore\ElectronicStore\obj\Debug\net6.0\ElectronicStore.genruntimeconfig.cache
 C:\Users\HadnanBasilioBomTrat\source\repos\mentoria_hadnanbasilio\Sprint 3\ElectronicStore\ElectronicStore\obj\Debug\net6.0\ref\ElectronicStore.dll
+C:\Users\HadnanBasilioBomTrat\OneDrive - Bomtrato\Desktop\github1\Inventory\ElectronicStore\bin\Debug\net6.0\ElectronicStore.exe
+C:\Users\HadnanBasilioBomTrat\OneDrive - Bomtrato\Desktop\github1\Inventory\ElectronicStore\bin\Debug\net6.0\ElectronicStore.deps.json
+C:\Users\HadnanBasilioBomTrat\OneDrive - Bomtrato\Desktop\github1\Inventory\ElectronicStore\bin\Debug\net6.0\ElectronicStore.runtimeconfig.json
+C:\Users\HadnanBasilioBomTrat\OneDrive - Bomtrato\Desktop\github1\Inventory\ElectronicStore\bin\Debug\net6.0\ElectronicStore.dll
+C:\Users\HadnanBasilioBomTrat\OneDrive - Bomtrato\Desktop\github1\Inventory\ElectronicStore\bin\Debug\net6.0\ElectronicStore.pdb
+C:\Users\HadnanBasilioBomTrat\OneDrive - Bomtrato\Desktop\github1\Inventory\ElectronicStore\obj\Debug\net6.0\ElectronicStore.csproj.AssemblyReference.cache
+C:\Users\HadnanBasilioBomTrat\OneDrive - Bomtrato\Desktop\github1\Inventory\ElectronicStore\obj\Debug\net6.0\ElectronicStore.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HadnanBasilioBomTrat\OneDrive - Bomtrato\Desktop\github1\Inventory\ElectronicStore\obj\Debug\net6.0\ElectronicStore.AssemblyInfoInputs.cache
+C:\Users\HadnanBasilioBomTrat\OneDrive - Bomtrato\Desktop\github1\Inventory\ElectronicStore\obj\Debug\net6.0\ElectronicStore.AssemblyInfo.cs
+C:\Users\HadnanBasilioBomTrat\OneDrive - Bomtrato\Desktop\github1\Inventory\ElectronicStore\obj\Debug\net6.0\ElectronicStore.csproj.CoreCompileInputs.cache
+C:\Users\HadnanBasilioBomTrat\OneDrive - Bomtrato\Desktop\github1\Inventory\ElectronicStore\obj\Debug\net6.0\ElectronicStore.dll
+C:\Users\HadnanBasilioBomTrat\OneDrive - Bomtrato\Desktop\github1\Inventory\ElectronicStore\obj\Debug\net6.0\refint\ElectronicStore.dll
+C:\Users\HadnanBasilioBomTrat\OneDrive - Bomtrato\Desktop\github1\Inventory\ElectronicStore\obj\Debug\net6.0\ElectronicStore.pdb
+C:\Users\HadnanBasilioBomTrat\OneDrive - Bomtrato\Desktop\github1\Inventory\ElectronicStore\obj\Debug\net6.0\ElectronicStore.genruntimeconfig.cache
+C:\Users\HadnanBasilioBomTrat\OneDrive - Bomtrato\Desktop\github1\Inventory\ElectronicStore\obj\Debug\net6.0\ref\ElectronicStore.dll

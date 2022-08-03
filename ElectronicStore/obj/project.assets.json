@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HadnanBasilioBomTrat\\source\\repos\\mentoria_hadnanbasilio\\Sprint 3\\ElectronicStore\\ElectronicStore\\ElectronicStore.csproj",
+      "projectUniqueName": "C:\\Users\\HadnanBasilioBomTrat\\OneDrive - Bomtrato\\Desktop\\github1\\Inventory\\ElectronicStore\\ElectronicStore.csproj",
       "projectName": "ElectronicStore",
-      "projectPath": "C:\\Users\\HadnanBasilioBomTrat\\source\\repos\\mentoria_hadnanbasilio\\Sprint 3\\ElectronicStore\\ElectronicStore\\ElectronicStore.csproj",
+      "projectPath": "C:\\Users\\HadnanBasilioBomTrat\\OneDrive - Bomtrato\\Desktop\\github1\\Inventory\\ElectronicStore\\ElectronicStore.csproj",
       "packagesPath": "C:\\Users\\HadnanBasilioBomTrat\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HadnanBasilioBomTrat\\source\\repos\\mentoria_hadnanbasilio\\Sprint 3\\ElectronicStore\\ElectronicStore\\obj\\",
+      "outputPath": "C:\\Users\\HadnanBasilioBomTrat\\OneDrive - Bomtrato\\Desktop\\github1\\Inventory\\ElectronicStore\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
