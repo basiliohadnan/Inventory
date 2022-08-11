@@ -57,7 +57,6 @@
 
         public static void InvalidFormat()
         {
-            ClearConsoleAndSkipALine();
             ColourChanger.RedText();
             Console.WriteLine("Invalid format, please try again.");
             Console.WriteLine();
@@ -85,7 +84,7 @@
         public static void ValueCannotBeZeroOrNegative()
         {
             ColourChanger.RedText();
-            Console.WriteLine("Price can't be negative or zero.");
+            Console.WriteLine("Value can't be negative or zero.");
             Console.WriteLine();
             ColourChanger.WhiteText();
         }

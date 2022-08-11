@@ -44,10 +44,14 @@ namespace ElectronicStore.Models
             Console.WriteLine();
 
             Console.WriteLine($"PRODUCTS:");
-            order.OrderItems.ForEach(orderItem => OrderItem.GetOrderItemDetails(orderItem));
+            order.OrderItems.ForEach(orderItem =>
+                OrderItem.GetOrderItemDetails(orderItem)
+            );
 
             Console.WriteLine($"TOTAL: R${order.OrderTotal.ToString("0.00")}");
+            ColourChanger.GreenText();
             Console.WriteLine("-------------------------------------------------");
+            ColourChanger.WhiteText();
             Console.WriteLine();
         }
 
@@ -63,7 +67,7 @@ namespace ElectronicStore.Models
             {
                 Console.WriteLine("Customer code:");
                 int customerCode = Convert.ToInt32(stringValidator.ValidateString());
-                customerCode = CodeValidator.ValidateCode(customerCode, "Customer");
+                customerCode = ValueValidator.ValidateCode(customerCode, "Customer");
 
                 var orderItems = new List<OrderItem>();
                 var order = new Order(customerCode, orderItems);
@@ -85,10 +89,11 @@ namespace ElectronicStore.Models
                                 StandardConsoleMessages.ClearConsoleAndSkipALine();
                                 Console.WriteLine("Product code:");
                                 int productCode = Convert.ToInt32(stringValidator.ValidateString());
-                                productCode = CodeValidator.ValidateCode(productCode, "Product");
+                                productCode = ValueValidator.ValidateCode(productCode, "Product");
 
                                 Console.WriteLine("Quantity:");
                                 int quantity = Convert.ToInt32(stringValidator.ValidateString());
+                                quantity = ValueValidator.ValidateQuantity(quantity);
                                 var orderItem = new OrderItem(quantity, productCode, Id);
                                 orderItems.Add(orderItem);
                                 order.OrderTotal = CalculateTotal(orderItems);
@@ -110,7 +115,9 @@ namespace ElectronicStore.Models
                                 else
                                 {
                                     StandardConsoleMessages.ClearConsoleAndSkipALine();
+                                    ColourChanger.RedText();
                                     Console.WriteLine($"You can't create an empty order!");
+                                    ColourChanger.WhiteText();
                                     StandardConsoleMessages.PressAnyKeyToReturn();
                                     break;
                                 }
@@ -145,7 +152,11 @@ namespace ElectronicStore.Models
             Console.WriteLine($"Orders: {orders.Count()}");
             Console.WriteLine();
 
-            orders.ForEach(order => GetOrderDetails(order));
+
+            orders.ForEach(order =>
+                GetOrderDetails(order)
+            );
+
             StandardConsoleMessages.PressAnyKeyToReturn();
         }
 
@@ -155,7 +166,7 @@ namespace ElectronicStore.Models
             {
                 Console.WriteLine("Order code:");
                 int code = Convert.ToInt32(stringValidator.ValidateString());
-                code = CodeValidator.ValidateCode(code, "Order");
+                code = ValueValidator.ValidateCode(code, "Order");
                 var order = GetOrder(code);
                 orders.Remove(order);
 
@@ -173,7 +184,7 @@ namespace ElectronicStore.Models
             {
                 Console.WriteLine("Order code:");
                 int code = Convert.ToInt32(stringValidator.ValidateString());
-                code = CodeValidator.ValidateCode(code, "Order");
+                code = ValueValidator.ValidateCode(code, "Order");
                 var order = GetOrder(code);
 
                 Console.WriteLine("ORDER DETAILS:");
@@ -199,7 +210,7 @@ namespace ElectronicStore.Models
                                 StandardConsoleMessages.ClearConsoleAndSkipALine();
                                 Console.WriteLine("Product code:");
                                 int productCode = Convert.ToInt32(stringValidator.ValidateString());
-                                productCode = CodeValidator.ValidateCode(productCode, "Product");
+                                productCode = ValueValidator.ValidateCode(productCode, "Product");
 
                                 Console.WriteLine("Quantity:");
                                 int quantity = Convert.ToInt32(stringValidator.ValidateString());
@@ -215,7 +226,7 @@ namespace ElectronicStore.Models
                                 StandardConsoleMessages.ClearConsoleAndSkipALine();
                                 Console.WriteLine("Order item code:");
                                 int orderItemCode = Convert.ToInt32(stringValidator.ValidateString());
-                                orderItemCode = CodeValidator.ValidateCode(orderItemCode, "OrderItem");
+                                orderItemCode = ValueValidator.ValidateCode(orderItemCode, "OrderItem");
 
                                 var orderItemToBeRemoved = OrderItem.GetOrderItem(orderItemCode);
                                 order.OrderItems.Remove(orderItemToBeRemoved);

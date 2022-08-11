@@ -50,7 +50,9 @@ namespace ElectronicStore.Models
                         case 9:
                             keepAsking = false;
                             StandardConsoleMessages.ClearConsoleAndSkipALine();
+                            ColourChanger.BlueText();
                             Console.WriteLine("Thanks, see you!");
+                            ColourChanger.WhiteText();
                             break;
                         default:
                             StandardConsoleMessages.InvalidOption();
@@ -59,6 +61,7 @@ namespace ElectronicStore.Models
                 }
                 catch (FormatException)
                 {
+                    StandardConsoleMessages.ClearConsoleAndSkipALine();
                     StandardConsoleMessages.InvalidFormat();
                     continue;
                 }
@@ -102,44 +105,60 @@ namespace ElectronicStore.Models
                             var description = stringValidator.ValidateString();
                             Console.WriteLine("Price:");
                             var price = Convert.ToDouble(stringValidator.ValidateString());
-                            price = Product.ValidatePrice(price);
+                            price = ValueValidator.ValidatePrice(price);
+
                             Product.CreateProduct(description, price);
+                            StandardConsoleMessages.PressAnyKeyToReturn();
                             break;
                         case 2:
                             StandardConsoleMessages.ClearConsoleAndSkipALine();
                             Product.GetProductsDetails();
                             break;
                         case 3:
-                            StandardConsoleMessages.ClearConsoleAndSkipALine();
-                            Console.WriteLine("Product code:");
-                            var code = Convert.ToInt32(stringValidator.ValidateString());
-                            code = CodeValidator.ValidateCode(code, "Product");
-                            Product.DeleteProduct(code);
+                            if (Product.GetProductsCount() > 0)
+                            {
+                                StandardConsoleMessages.ClearConsoleAndSkipALine();
+                                Console.WriteLine("Product code:");
+                                var code = Convert.ToInt32(stringValidator.ValidateString());
+                                code = ValueValidator.ValidateCode(code, "Product");
+
+                                Product.DeleteProduct(code);
+                                StandardConsoleMessages.PressAnyKeyToReturn();
+                            }
+                            else
+                                StandardConsoleMessages.EmptyList("Products");
                             break;
                         case 4:
-                            StandardConsoleMessages.ClearConsoleAndSkipALine();
-                            Console.WriteLine("Product code:");
-                            code = Convert.ToInt32(stringValidator.ValidateString());
-                            code = CodeValidator.ValidateCode(code, "Product");
-                            var product = Product.GetProduct(code);
+                            if (Product.GetProductsCount() > 0)
+                            {
+                                StandardConsoleMessages.ClearConsoleAndSkipALine();
+                                Console.WriteLine("Product code:");
+                                var code = Convert.ToInt32(stringValidator.ValidateString());
+                                code = ValueValidator.ValidateCode(code, "Product");
 
-                            Console.Clear();
-                            ColourChanger.BlueText();
-                            Console.WriteLine("PRODUCT DETAILS");
-                            ColourChanger.WhiteText();
+                                Console.Clear();
+                                ColourChanger.BlueText();
+                                Console.WriteLine("PRODUCT DETAILS");
+                                ColourChanger.WhiteText();
 
-                            Product.GetProductDetails(product);
+                                var product = Product.GetProduct(code);
+                                Product.GetProductDetails(product);
 
-                            ColourChanger.BlueText();
-                            Console.WriteLine("Please, insert new values:");
-                            ColourChanger.WhiteText();
-                            Console.WriteLine("Description:");
-                            description = stringValidator.ValidateString();
+                                ColourChanger.BlueText();
+                                Console.WriteLine("Please, insert new values:");
+                                ColourChanger.WhiteText();
+                                Console.WriteLine("Description:");
+                                description = stringValidator.ValidateString();
 
-                            Console.WriteLine("Price:");
-                            price = Convert.ToDouble(stringValidator.ValidateString());
-                            Product.ValidatePrice(price);
-                            Product.UpdateProduct(code, description, price);
+                                Console.WriteLine("Price:");
+                                price = Convert.ToDouble(stringValidator.ValidateString());
+                                ValueValidator.ValidatePrice(price);
+
+                                Product.UpdateProduct(product, description, price);
+                                StandardConsoleMessages.PressAnyKeyToReturn();
+                            }
+                            else
+                                StandardConsoleMessages.EmptyList("Products");
                             break;
                         case 9:
                             keepAsking = false;
@@ -152,6 +171,7 @@ namespace ElectronicStore.Models
                 }
                 catch (FormatException)
                 {
+                    StandardConsoleMessages.ClearConsoleAndSkipALine();
                     StandardConsoleMessages.InvalidFormat();
                     continue;
                 }
@@ -191,7 +211,29 @@ namespace ElectronicStore.Models
                     {
                         case 1:
                             StandardConsoleMessages.ClearConsoleAndSkipALine();
-                            Customer.CreateCustomer();
+                            Console.WriteLine("Name:");
+                            var name = stringValidator.ValidateString();
+
+                            Console.WriteLine("CPF:");
+                            var cpf = stringValidator.ValidateString();
+
+                            Console.WriteLine("Subscriber:");
+                            Console.WriteLine("1. Yes");
+                            Console.WriteLine("2. No");
+                            var subscriber = Customer.SaveAsBoolean(Convert.ToInt32(stringValidator.ValidateString()));
+
+                            Console.WriteLine("Phone 1:");
+                            var phone1 = stringValidator.ValidateString();
+
+                            Console.WriteLine("Phone 2:");
+                            var phone2 = Console.ReadLine();
+                            Console.WriteLine();
+
+                            Console.WriteLine("E-mail:");
+                            var email = Person.ValidateEmail();
+
+                            Customer.CreateCustomer(name, cpf, subscriber, phone1, phone2, email);
+                            StandardConsoleMessages.PressAnyKeyToReturn();
                             break;
                         case 2:
                             StandardConsoleMessages.ClearConsoleAndSkipALine();
@@ -216,6 +258,7 @@ namespace ElectronicStore.Models
                 }
                 catch (FormatException)
                 {
+                    StandardConsoleMessages.ClearConsoleAndSkipALine();
                     StandardConsoleMessages.InvalidFormat();
                     continue;
                 }
@@ -275,6 +318,7 @@ namespace ElectronicStore.Models
                 }
                 catch (FormatException)
                 {
+                    StandardConsoleMessages.ClearConsoleAndSkipALine();
                     StandardConsoleMessages.InvalidFormat();
                     continue;
                 }
@@ -339,6 +383,7 @@ namespace ElectronicStore.Models
                 }
                 catch (FormatException)
                 {
+                    StandardConsoleMessages.ClearConsoleAndSkipALine();
                     StandardConsoleMessages.InvalidFormat();
                     continue;
                 }

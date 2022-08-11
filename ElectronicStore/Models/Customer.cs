@@ -13,6 +13,7 @@ namespace ElectronicStore.Models
             Cpf = cpf;
             Subscriber = subscriber;
             Code = Id;
+            customers.Add(this);
         }
 
         public Customer(string name, string cpf, bool subscriber, string phone1, string email) : base(name, phone1, email)
@@ -20,6 +21,7 @@ namespace ElectronicStore.Models
             Cpf = cpf;
             Subscriber = subscriber;
             Code = Id;
+            customers.Add(this);
         }
 
         public static bool SaveAsBoolean(int input)
@@ -36,46 +38,19 @@ namespace ElectronicStore.Models
             return "No";
         }
 
-        public static void CreateCustomer()
+        public static bool CreateCustomer(string name, string cpf, bool subscriber, string phone1, string ?phone2, string email)
         {
-            Console.WriteLine("Name:");
-            var name = stringValidator.ValidateString();
-
-            Console.WriteLine("CPF:");
-            var cpf = stringValidator.ValidateString();
-
-            Console.WriteLine("Subscriber:");
-            Console.WriteLine("1. Yes");
-            Console.WriteLine("2. No");
-            var subscriber = SaveAsBoolean(Convert.ToInt32(stringValidator.ValidateString()));
-
-            Console.WriteLine("Phone 1:");
-            var phone1 = stringValidator.ValidateString();
-
-            Console.WriteLine("Phone 2:");
-            var phone2 = Console.ReadLine();
-            Console.WriteLine();
-
-            Console.WriteLine("E-mail:");
-            var email = ValidateEmail();
-
             if (phone2 is null)
             {
                 var customer = new Customer(name, cpf, subscriber, phone1, email);
-                customers.Add(customer);
-
-                StandardConsoleMessages.ClearConsoleAndSkipALine();
                 Console.WriteLine($"Customer '{customer.Name}' registered!");
-                StandardConsoleMessages.PressAnyKeyToReturn();
+                return true;
             }
             else
             {
                 var customer = new Customer(name, cpf, subscriber, phone1, phone2, email);
-                customers.Add(customer);
-
-                StandardConsoleMessages.ClearConsoleAndSkipALine();
                 Console.WriteLine($"Customer '{customer.Name}' registered!");
-                StandardConsoleMessages.PressAnyKeyToReturn();
+                return true;
             }
         }
 
@@ -107,7 +82,7 @@ namespace ElectronicStore.Models
             {
                 Console.WriteLine("Please, inform the Customer Code:");
                 int code = Convert.ToInt32(stringValidator.ValidateString());
-                code = CodeValidator.ValidateCode(code, "Customer");
+                code = ValueValidator.ValidateCode(code, "Customer");
                 var customer = GetCustomer(code);
 
                 customers.Remove(customer);
@@ -126,7 +101,7 @@ namespace ElectronicStore.Models
             {
                 Console.WriteLine("Customer Code:");
                 var code = Convert.ToInt32(stringValidator.ValidateString());
-                code = CodeValidator.ValidateCode(code, "Customer");
+                code = ValueValidator.ValidateCode(code, "Customer");
                 var customer = GetCustomer(code);
 
                 Console.WriteLine("CUSTOMER DETAILS:");
@@ -170,6 +145,6 @@ namespace ElectronicStore.Models
 
         public static List<Customer> GetCustomers() => customers;
 
-        public static Customer GetCustomer(int code) => customers.FirstOrDefault(customer => customer.Code == code);
+        public static Customer GetCustomer(int code) => customers.First(customer => customer.Code == code);
     }
 }

@@ -49,47 +49,13 @@ namespace ElectronicStore.Models
             products.Add(this);
         }
 
-        public static double ValidatePrice(double price)
-        {
-            while (true)
-            {
-                try
-                {
-                    if (price > 0)
-                        return price;
-
-                    StandardConsoleMessages.ValueCannotBeZeroOrNegative();
-
-                    Console.WriteLine();
-                    Console.WriteLine("Price:");
-                    price = Convert.ToDouble(stringValidator.ValidateString());
-                    price = ValidatePrice(price);
-                }
-                catch (FormatException)
-                {
-                    StandardConsoleMessages.InvalidFormat();
-                    continue;
-                }
-                catch (InvalidOperationException)
-                {
-                    StandardConsoleMessages.InvalidOption();
-                    continue;
-                }
-                catch (Exception)
-                {
-                    StandardConsoleMessages.UnidentifiedErrorOccurred();
-                    continue;
-                }
-            }
-        }
-
-        public static void CreateProduct(string description, double price)
+        public static bool CreateProduct(string description, double price)
         {
             var product = new Product(description, price);
 
-            StandardConsoleMessages.ClearConsoleAndSkipALine();
+            Console.Clear();
             Console.WriteLine($"Product '{product.Description}' registered!");
-            StandardConsoleMessages.PressAnyKeyToReturn();
+            return true;
         }
 
         public static int GetProductsCount() => products.Count();
@@ -116,42 +82,20 @@ namespace ElectronicStore.Models
 
         public static bool DeleteProduct(int code)
         {
-            if (products.Count > 0)
-            {
-                var product = GetProduct(code);
-                products.Remove(product);
+            var product = GetProduct(code);
+            products.Remove(product);
 
-                //StandardConsoleMessages.ClearConsoleAndSkipALine();
-                Console.WriteLine($"Product code {product.Code} removed!");
-                //StandardConsoleMessages.PressAnyKeyToReturn();
-                return true;
-            }
-            else
-            {
-                StandardConsoleMessages.EmptyList("Products");
-                return false;
-            }
-
+            Console.WriteLine($"Product code {product.Code} removed!");
+            return true;
         }
 
-        public static bool UpdateProduct(int code, string description, double price)
+        public static bool UpdateProduct(Product product, string description, double price)
         {
-            if (products.Count > 0)
-            {
-                var product = GetProduct(code);
-                product.Description = description;
-                product.Price = price;
+            product.Description = description;
+            product.Price = price;
 
-                //StandardConsoleMessages.ClearConsoleAndSkipALine();
-                Console.WriteLine($"Product code {product.Code} updated!");
-                //StandardConsoleMessages.PressAnyKeyToReturn();
-                return true;
-            }
-            else
-            {
-                StandardConsoleMessages.EmptyList("Products");
-                return false;
-            }
+            Console.WriteLine($"Product code {product.Code} updated!");
+            return true;
         }
     }
 }

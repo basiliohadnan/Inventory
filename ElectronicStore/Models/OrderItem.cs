@@ -51,7 +51,7 @@ namespace ElectronicStore.Models
             {
                 Console.WriteLine("Order item code:");
                 int code = Convert.ToInt32(stringValidator.ValidateString());
-                code = CodeValidator.ValidateCode(code, "Order Item");
+                code = ValueValidator.ValidateCode(code, "Order Item");
 
                 var orderItem = GetOrderItem(code);
                 orderItemList.Remove(orderItem);

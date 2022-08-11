@@ -42,6 +42,7 @@ namespace ElectronicStore.Models
             {
                 Console.WriteLine("Product code:");
                 var productCode = Convert.ToInt32(stringValidator.ValidateString());
+                productCode = ValueValidator.ValidateCode(productCode, "Product");
                 var product = Product.GetProduct(productCode);
                 productCode = product.Code;
 
@@ -86,7 +87,7 @@ namespace ElectronicStore.Models
             {
                 Console.WriteLine("Please, inform the entry code:");
                 int code = Convert.ToInt32(stringValidator.ValidateString());
-                code = CodeValidator.ValidateCode(code, "Inventory");
+                code = ValueValidator.ValidateCode(code, "Inventory");
                 var inventoryEntry = GetInventoryEntry(code);
 
                 inventoryList.Remove(inventoryEntry);

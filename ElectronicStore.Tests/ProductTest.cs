@@ -51,7 +51,6 @@ namespace ElectronicStore.Tests
             Assert.Equal(price, product.Price);
         }
 
-
         [Fact]
         public void Product_GetProducts_ReturnsProductList()
         {
@@ -184,7 +183,7 @@ namespace ElectronicStore.Tests
             var product = new Product(description, price);
 
             //Act
-            var productUpdated = Product.UpdateProduct(product.Code, newDescription, newPrice);
+            var productUpdated = Product.UpdateProduct(product, newDescription, newPrice);
 
             //Assert
             Assert.True(productUpdated);
@@ -216,29 +215,27 @@ namespace ElectronicStore.Tests
             //Assert
             Assert.Throws<InvalidDataException>(
                 //Act
-                () => Product.UpdateProduct(product.Code, newDescription, newPrice)
+                () => Product.UpdateProduct(product, newDescription, newPrice)
                 );
         }
 
         [Theory]
-        [InlineData(-1, "description1", 100.00, "newDescription", 300.00)]
-        [InlineData(0, "description1", 100.00, "newDescription", 300.00)]
-        [InlineData('#', "description1", 100.00, "newDescription", 300.00)]
+        [InlineData(-1, "newDescription", 300.00)]
+        [InlineData(0, "newDescription", 300.00)]
+        [InlineData('#', "newDescription", 300.00)]
         public void Product_UpdateProductWithInvalidCode_ThrowsInvalidOperationException(
             int code,
-            string description,
-            double price,
             string newDescription,
             double newPrice)
         {
-            //Arrange
-            var product = new Product(description, price);
-
             //Assert
             Assert.Throws<InvalidOperationException>(
                 //Act
-                () => Product.UpdateProduct(code, newDescription, newPrice)
-                );
+                () =>
+                {
+                    var invalidProduct = Product.GetProduct(code);
+                    Product.UpdateProduct(invalidProduct, newDescription, newPrice);
+                });
         }
     }
 }
