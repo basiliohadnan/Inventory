@@ -6,8 +6,36 @@ namespace ElectronicStore.Models
     {
         public static StringValidator stringValidator = new StringValidator();
         private static List<Product> products = new List<Product>();
-        public string Description { get; private set; }
-        public double Price { get; private set; }
+        private string _description;
+        public string Description
+        {
+            get
+            {
+                return _description;
+            }
+            private set
+            {
+                if (string.IsNullOrEmpty(value))
+                    throw new InvalidDataException("Description must be filled.");
+                else
+                    _description = value;
+            }
+        }
+        private double _price;
+        public double Price
+        {
+            get
+            {
+                return _price;
+            }
+            private set
+            {
+                if (value <= 0)
+                    throw new InvalidDataException("Value cannot be zero or negative.");
+                else
+                    _price = value;
+            }
+        }
         public static int Id { get; private set; }
         public int Code { get; private set; }
 
@@ -18,6 +46,7 @@ namespace ElectronicStore.Models
             Code = Id;
             Description = description;
             Price = price;
+            products.Add(this);
         }
 
         public static double ValidatePrice(double price)
@@ -54,17 +83,9 @@ namespace ElectronicStore.Models
             }
         }
 
-        public static void CreateProduct()
+        public static void CreateProduct(string description, double price)
         {
-            Console.WriteLine("Description:");
-            var description = stringValidator.ValidateString();
-
-            Console.WriteLine("Price:");
-            var price = Convert.ToDouble(stringValidator.ValidateString());
-            price = ValidatePrice(price);
-
             var product = new Product(description, price);
-            products.Add(product);
 
             StandardConsoleMessages.ClearConsoleAndSkipALine();
             Console.WriteLine($"Product '{product.Description}' registered!");
@@ -93,53 +114,44 @@ namespace ElectronicStore.Models
             Console.WriteLine();
         }
 
-        public static void DeleteProduct()
+        public static bool DeleteProduct(int code)
         {
             if (products.Count > 0)
             {
-                Console.WriteLine("Please, inform the Product Code:");
-                int code = Convert.ToInt32(stringValidator.ValidateString());
-                code = CodeValidator.ValidateCode(code, "Product");
                 var product = GetProduct(code);
-               
                 products.Remove(product);
 
-                StandardConsoleMessages.ClearConsoleAndSkipALine();
+                //StandardConsoleMessages.ClearConsoleAndSkipALine();
                 Console.WriteLine($"Product code {product.Code} removed!");
-                StandardConsoleMessages.PressAnyKeyToReturn();
+                //StandardConsoleMessages.PressAnyKeyToReturn();
+                return true;
             }
             else
+            {
                 StandardConsoleMessages.EmptyList("Products");
+                return false;
+            }
+
         }
 
-        public static void UpdateProduct()
+        public static bool UpdateProduct(int code, string description, double price)
         {
             if (products.Count > 0)
             {
-                Console.WriteLine("Product code:");
-                int code = Convert.ToInt32(stringValidator.ValidateString());
-                code = CodeValidator.ValidateCode(code, "Product");
                 var product = GetProduct(code);
-
-                Console.WriteLine("PRODUCT DETAILS:");
-                GetProductDetails(product);
-
-                Console.WriteLine("Please, insert new values:");
-                Console.WriteLine("Description:");
-                var description = stringValidator.ValidateString();
                 product.Description = description;
-
-                Console.WriteLine("Price:");
-                var price = Convert.ToDouble(stringValidator.ValidateString());
-                ValidatePrice(price);
                 product.Price = price;
 
-                StandardConsoleMessages.ClearConsoleAndSkipALine();
+                //StandardConsoleMessages.ClearConsoleAndSkipALine();
                 Console.WriteLine($"Product code {product.Code} updated!");
-                StandardConsoleMessages.PressAnyKeyToReturn();
+                //StandardConsoleMessages.PressAnyKeyToReturn();
+                return true;
             }
             else
+            {
                 StandardConsoleMessages.EmptyList("Products");
+                return false;
+            }
         }
     }
 }

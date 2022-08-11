@@ -98,7 +98,12 @@ namespace ElectronicStore.Models
                     {
                         case 1:
                             StandardConsoleMessages.ClearConsoleAndSkipALine();
-                            Product.CreateProduct();
+                            Console.WriteLine("Description:");
+                            var description = stringValidator.ValidateString();
+                            Console.WriteLine("Price:");
+                            var price = Convert.ToDouble(stringValidator.ValidateString());
+                            price = Product.ValidatePrice(price);
+                            Product.CreateProduct(description, price);
                             break;
                         case 2:
                             StandardConsoleMessages.ClearConsoleAndSkipALine();
@@ -106,11 +111,35 @@ namespace ElectronicStore.Models
                             break;
                         case 3:
                             StandardConsoleMessages.ClearConsoleAndSkipALine();
-                            Product.DeleteProduct();
+                            Console.WriteLine("Product code:");
+                            var code = Convert.ToInt32(stringValidator.ValidateString());
+                            code = CodeValidator.ValidateCode(code, "Product");
+                            Product.DeleteProduct(code);
                             break;
                         case 4:
                             StandardConsoleMessages.ClearConsoleAndSkipALine();
-                            Product.UpdateProduct();
+                            Console.WriteLine("Product code:");
+                            code = Convert.ToInt32(stringValidator.ValidateString());
+                            code = CodeValidator.ValidateCode(code, "Product");
+                            var product = Product.GetProduct(code);
+
+                            Console.Clear();
+                            ColourChanger.BlueText();
+                            Console.WriteLine("PRODUCT DETAILS");
+                            ColourChanger.WhiteText();
+
+                            Product.GetProductDetails(product);
+
+                            ColourChanger.BlueText();
+                            Console.WriteLine("Please, insert new values:");
+                            ColourChanger.WhiteText();
+                            Console.WriteLine("Description:");
+                            description = stringValidator.ValidateString();
+
+                            Console.WriteLine("Price:");
+                            price = Convert.ToDouble(stringValidator.ValidateString());
+                            Product.ValidatePrice(price);
+                            Product.UpdateProduct(code, description, price);
                             break;
                         case 9:
                             keepAsking = false;

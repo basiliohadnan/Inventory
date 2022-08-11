@@ -13,6 +13,7 @@ CRUD of following objects:
 
  1. Clone the project
  2. Install preferred IDE (recommended: [Visual Studio 2022](https://visualstudio.microsoft.com/vs//)
- 3. Open Solution file (LojaEletronicos)
- 4. Run the app (F5)
- 5. Navigate between the options (:
+ 3. Open terminal
+ 4. Navigate to the project directory
+ 5. Run command 'dotnet run' 
+ 6. Navigate between the options (:

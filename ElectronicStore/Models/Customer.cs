@@ -170,6 +170,6 @@ namespace ElectronicStore.Models
 
         public static List<Customer> GetCustomers() => customers;
 
-        public static Customer GetCustomer(int code) => customers.First(customer => customer.Code == code);
+        public static Customer GetCustomer(int code) => customers.FirstOrDefault(customer => customer.Code == code);
     }
 }

@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectronicStore", "ElectronicStore\ElectronicStore.csproj", "{4FB1C343-9D9D-42FE-A5CE-9D2C8B09B34D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElectronicStore.Core", "ElectronicStore\ElectronicStore.Core.csproj", "{4FB1C343-9D9D-42FE-A5CE-9D2C8B09B34D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectronicStore.Tests", "ElectronicStore.Tests\ElectronicStore.Tests.csproj", "{35F3888F-AA54-4B56-9140-A9037FC03340}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{4FB1C343-9D9D-42FE-A5CE-9D2C8B09B34D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FB1C343-9D9D-42FE-A5CE-9D2C8B09B34D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FB1C343-9D9D-42FE-A5CE-9D2C8B09B34D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35F3888F-AA54-4B56-9140-A9037FC03340}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35F3888F-AA54-4B56-9140-A9037FC03340}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35F3888F-AA54-4B56-9140-A9037FC03340}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35F3888F-AA54-4B56-9140-A9037FC03340}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

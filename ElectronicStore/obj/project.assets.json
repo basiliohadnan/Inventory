@@ -14,9 +14,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HadnanBasilioBomTrat\\source\\repos\\mentoria_hadnanbasilio\\Sprint 3\\ElectronicStore\\ElectronicStore\\ElectronicStore.csproj",
-      "projectName": "ElectronicStore",
-      "projectPath": "C:\\Users\\HadnanBasilioBomTrat\\source\\repos\\mentoria_hadnanbasilio\\Sprint 3\\ElectronicStore\\ElectronicStore\\ElectronicStore.csproj",
+      "projectUniqueName": "C:\\Users\\HadnanBasilioBomTrat\\source\\repos\\mentoria_hadnanbasilio\\Sprint 3\\ElectronicStore\\ElectronicStore\\ElectronicStore.Core.csproj",
+      "projectName": "ElectronicStore.Core",
+      "projectPath": "C:\\Users\\HadnanBasilioBomTrat\\source\\repos\\mentoria_hadnanbasilio\\Sprint 3\\ElectronicStore\\ElectronicStore\\ElectronicStore.Core.csproj",
       "packagesPath": "C:\\Users\\HadnanBasilioBomTrat\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\HadnanBasilioBomTrat\\source\\repos\\mentoria_hadnanbasilio\\Sprint 3\\ElectronicStore\\ElectronicStore\\obj\\",
       "projectStyle": "PackageReference",

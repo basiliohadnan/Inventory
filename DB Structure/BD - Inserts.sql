@@ -125,7 +125,7 @@ JOIN pessoa pes2 on pes2.id = v.pessoaId
 INSERT INTO itemPedido
 SELECT 1, 5, 1
 UNION ALL SELECT 9, 5, 5
-UNION ALL SELECT 1, 3, 6
+UNION ALL SELECT 1, 3, 5
 
 SELECT * FROM itemPedido IP
 JOIN produto P ON P.ID = IP.produtoId
